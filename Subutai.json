@@ -1,0 +1,87 @@
+{
+    "name": "${environmentName}",
+    "description": "Grav CMS + Admin",
+    "version": "2.0.0",
+    "author": "https://github.com/lbthomsen",
+    "containers": [
+        {
+            "hostname": "${webContainerName}",
+            "template": "debian-stretch",
+            "peer-criteria": "HTTP-GROUP",
+            "size": "${containerSize}",
+            "port-mapping": [
+                {
+                    "protocol": "https",
+                    "domain": "${domainName}",
+                    "internal-port": "80",
+                    "external-port": "443"
+                }
+            ]
+        }
+    ],
+    "peer-criteria": [
+        {
+            "name": "HTTP-GROUP"
+        }
+    ],
+    "ansible-configuration": {
+        "source-url": "https://github.com/subutai-blueprints/subutai-bp-grav/archive/master.zip",
+        "ansible-playbook": "site.yml",
+        "extra-vars": [
+            {
+                "key": "admin_user",
+                "value": "${adminUser}"
+            },
+            {
+                "key": "admin_pwd",
+                "value": "${adminPwd}"
+            }
+        ],
+        "groups": [
+            {
+                "name": "grav",
+                "hostnames": [
+                    "${webContainerName}"
+                ]
+            }
+        ]
+    },
+    "user-variables": {
+        "environmentName": {
+            "description": "Enter the environment name",
+            "type": "string",
+            "default": "grav",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "domainName": {
+            "description": "Select your domain or create new one",
+            "type": "domain",
+            "default": "change.the.domain",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "webContainerName": {
+            "description": "Enter the container's hostname",
+            "type": "string",
+            "default": "wp",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "adminUser": {
+            "description": "Enter the admin user",
+            "type": "string",
+            "default": "admin",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "adminPwd": {
+            "description": "Enter the admin password",
+            "type": "string",
+            "default": "admin",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "containerSize": {
+            "description": "Container Size",
+            "type": "enum",
+            "default": "SMALL",
+            "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+        }
+    }
+}
