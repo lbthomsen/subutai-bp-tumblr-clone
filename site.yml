@@ -128,7 +128,7 @@
       mode: "0755"
 
   - name: Run tumblr_clone script
-    shell: /usr/local/bin/tumblr_clone
+    shell: /usr/local/bin/tumblr_clone {{ tumblr_user }} {{ tumblr_passwd }} {{ tumblr_blog }}
     args:
       chdir: /home/grav/grav
     become: yes
