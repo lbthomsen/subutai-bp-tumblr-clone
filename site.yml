@@ -121,4 +121,17 @@
       dest: /etc/apache2/suexec/www-data
     notify: restart apache
 
+  - name: Install tumblr_clone script
+    template:
+      src: files/tumblr_clone
+      dest: /usr/local/bin/tumblr_clone
+      mode: "0755"
+
+  - name: Run tumblr_clone script
+    shell: /usr/local/bin/tumblr_clone
+    args:
+      chdir: /home/grav/grav
+    become: yes
+    become_user: grav
+
 # vim: ts=2 et nowrap autoindent
