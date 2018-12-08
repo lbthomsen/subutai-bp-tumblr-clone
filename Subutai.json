@@ -1,7 +1,7 @@
 {
     "name": "${environmentName}",
-    "description": "Grav CMS + Admin",
-    "version": "2.0.0",
+    "description": "Clone Tumblr blog to Grav",
+    "version": "0.0.1",
     "author": "https://github.com/lbthomsen",
     "containers": [
         {
@@ -25,7 +25,7 @@
         }
     ],
     "ansible-configuration": {
-        "source-url": "https://github.com/subutai-blueprints/subutai-bp-grav/archive/master.zip",
+        "source-url": "https://github.com/subutai-blueprints/subutai-bp-tumblr-clone/archive/master.zip",
         "ansible-playbook": "site.yml",
         "extra-vars": [
             {
@@ -35,6 +35,18 @@
             {
                 "key": "admin_pwd",
                 "value": "${adminPwd}"
+            }, 
+            {
+                "key": "tumblr_user",
+                "value": "${tumblrUser}"
+            },
+            {
+                "key": "tumblr_passwd",
+                "value": "${tumblrPasswd}"
+            },
+            {
+                "key": "tumblr_blog",
+                "value": "${tumblrBlog}"
             }
         ],
         "groups": [
@@ -82,6 +94,24 @@
             "type": "enum",
             "default": "SMALL",
             "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+        },
+        "tumblrUser": {
+            "description": "Enter your Tumblr user",
+            "type": "string",
+            "default": "admin",
+            "validation": "[a-zA-Z0-9]+"
+        },
+        "tumblrPasswd": {
+            "description": "Enter your Tumblr pwd",
+            "type": "string",
+            "default": "admin",
+            "validation": "[a-zA-Z0-9]+"
+        }, 
+        "tumblrBlog": {
+            "description": "Enter the name of your Tumblr blog",
+            "type": "string",
+            "default": "admin",
+            "validation": "[a-zA-Z0-9]+"
         }
     }
 }
